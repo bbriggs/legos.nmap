@@ -31,6 +31,16 @@ class LegoNmap(Lego):
             return False
 
     def _os_detect(self, message):
+        nm = nmap.PortScanner()
+        try:
+            hosts = message['text'].split()[2]
+        except:
+            self.reply(message, 'OS detect takes the form !nmap os {host}', self._handle_opts(message))
+        try:
+            res = nm.scan(hosts=hosts, arguments='-O')
+            self._report_results(nm, message)
+        except nmap.nmap.PortScannerError:
+            self.reply(message, 'Not running with sufficient privleges to execute that request.', self._handle_opts(message))
         return True
 
     def _basic_scan(self, message):
@@ -51,7 +61,7 @@ class LegoNmap(Lego):
 
         for host in nm.all_hosts():
             text = "Host: {} | ".format(nm[host]['addresses']['ipv4'])
-
+            logger.info(nm[host].keys())
             for proto in nm[host].all_protocols():
                 text += "{} ".format(proto)
                 lport = sorted(nm[host][proto].keys())
@@ -62,9 +72,11 @@ class LegoNmap(Lego):
                         open_ports.append(port)
 
                 if len(open_ports) == 0:
-                    text += "No open ports. |"
+                    text += "No open ports. | "
                 else:
-                    text += "{} |".format(str(open_ports))
+                    text += "{} | ".format(str(open_ports))
+            if 'osmatch' in nm[host]:
+                text += "OS best guess ({}% confidence): {} | ".format( nm [host]['osmatch'][0]['accuracy'], nm[host]['osmatch'][0]['name'])
 
             self.reply(message, text, opts)
 
