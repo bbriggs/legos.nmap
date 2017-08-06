@@ -22,12 +22,28 @@ class LegoNmap(Lego):
 
     def _dispatcher(self, message):
         command = message['text'].split()[1]
-        commands = {'simple': self._basic_scan, 'os': self._os_detect}
+        commands = {'simple': self._basic_scan, 'os': self._os_detect, 'heartbleed': self._heartbleed}
+
         if command in commands:
             commands[command](message)
             return True
         else:
             self.reply(message, 'Command not supported. RTFM.', self._handle_opts(message))
+            return False
+
+    def _heartbleed(self, message):
+        nm = nmap.PortScanner()
+        opts = self._handle_opts(message)
+        try:
+            hosts = message['text'].split()[2]
+        except:
+            self.reply(message, 'Heartbleed checking takes the form !nmap heartbleed {host}', self._handle_opts(message))
+        try:
+            self.reply(message)
+            res = nm.scan(hosts=hosts, arguments='-sV -p 443 --script=ssl-heartbleed')
+            self._report_results(nm, message)
+        except:
+            self.reply(message, 'Nmap requires scripts installed and enabled', self._handle_opts(message))
             return False
 
     def _os_detect(self, message):
