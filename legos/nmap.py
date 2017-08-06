@@ -14,15 +14,32 @@ class LegoNmap(Lego):
     def handle(self, message):
         if ' ' in message['text']:
             if len(message['text'].split()) > 2:
-                self._basic_scan(message)
+                self._dispatcher(message)
         else:
             opts = self._handle_opts(message)
             self.reply(message, 'Scan commands must be in the format !nmap {target} {port(s)}', opts)
         return
 
+    def _dispatcher(self, message):
+        command = message['text'].split()[1]
+        commands = {'simple': self._basic_scan, 'os': self._os_detect}
+        if command in commands:
+            commands[command](message)
+            return True
+        else:
+            self.reply(message, 'Command not supported. RTFM.', self._handle_opts(message))
+            return False
+
+    def _os_detect(self, message):
+        return True
+
     def _basic_scan(self, message):
         nm = nmap.PortScanner()
-        host, ports = message['text'].split()[1:3]
+        try:
+            host, ports = message['text'].split()[2:4]
+        except:
+            self.reply(message, 'Simple scan takes the form !nmap simple {host} {port(s}', self._handle_opts(message))
+            return False
         self.reply(message, 'Scanning {} {}'.format(host, ports), self._handle_opts(message))
         res = nm.scan(host, ports)
         for node in nm.all_hosts():
