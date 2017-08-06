@@ -47,7 +47,7 @@ class LegoNmap(Lego):
                 if len(open_ports) == 0:
                     text += "No open ports. |"
                 else:
-                    text += " {} |".format(str(open_ports))
+                    text += "{} |".format(str(open_ports))
 
             self.reply(message, text, opts)
 
