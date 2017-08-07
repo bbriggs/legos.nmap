@@ -1,6 +1,6 @@
 # legos.nmap
 
-[![Travis](https://img.shields.io/travis/bbriggs/legos.nmap.svg)]() [![PyPI](https://img.shields.io/pypi/pyversions/legos.nmap.svg)]() [![PyPI](https://img.shields.io/pypi/v/legos.nmap.svg)]()[![PyPI](https://img.shields.io/pypi/wheel/legos.nmap.svg)]() [![PyPI](https://img.shields.io/pypi/l/legos.nmap.svg)]() [![PyPI](https://img.shields.io/pypi/status/legos.nmap.svg)]()
+[![Travis](https://img.shields.io/travis/bbriggs/legos.nmap.svg)]() [![PyPI](https://img.shields.io/pypi/pyversions/legos.nmap.svg)]() [![PyPI](https://img.shields.io/pypi/v/legos.nmap.svg)]() [![PyPI](https://img.shields.io/pypi/wheel/legos.nmap.svg)]() [![PyPI](https://img.shields.io/pypi/l/legos.nmap.svg)]() [![PyPI](https://img.shields.io/pypi/status/legos.nmap.svg)]()
 
 Run nmap scans from chat! This is a terrible idea and I can't recommend it to anyone, but if you decide that this is something that sounds fun, I won't stop you.
 
