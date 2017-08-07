@@ -17,7 +17,8 @@ class LegoNmap(Lego):
                 self._dispatcher(message)
         else:
             opts = self._handle_opts(message)
-            self.reply(message, 'Scan commands must be in the format !nmap {target} {port(s)}', opts)
+            self.reply(message, 'Scan commands must be in the format '
+                       + '!nmap {target} {port(s)}', opts)
         return
 
     def _dispatcher(self, message):
@@ -27,7 +28,8 @@ class LegoNmap(Lego):
             commands[command](message)
             return True
         else:
-            self.reply(message, 'Command not supported. RTFM.', self._handle_opts(message))
+            self.reply(message, 'Command not supported. RTFM.',
+                       self._handle_opts(message))
             return False
 
     def _os_detect(self, message):
@@ -35,12 +37,14 @@ class LegoNmap(Lego):
         try:
             hosts = message['text'].split()[2]
         except:
-            self.reply(message, 'OS detect takes the form !nmap os {host}', self._handle_opts(message))
+            self.reply(message, 'OS detect takes the form !nmap os {host}',
+                       self._handle_opts(message))
         try:
-            res = nm.scan(hosts=hosts, arguments='-O')
+            nm.scan(hosts=hosts, arguments='-O')
             self._report_results(nm, message)
         except nmap.nmap.PortScannerError:
-            self.reply(message, 'Not running with sufficient privleges to execute that request.', self._handle_opts(message))
+            self.reply(message, 'Not running with sufficient privleges to '
+                       + 'execute that request.', self._handle_opts(message))
         return True
 
     def _basic_scan(self, message):
@@ -48,10 +52,13 @@ class LegoNmap(Lego):
         try:
             host, ports = message['text'].split()[2:4]
         except:
-            self.reply(message, 'Simple scan takes the form !nmap simple {host} {port(s}', self._handle_opts(message))
+            self.reply(message, 'Simple scan takes the form '
+                       + '!nmap simple {host} {port(s}',
+                       self._handle_opts(message))
             return False
-        self.reply(message, 'Scanning {} {}'.format(host, ports), self._handle_opts(message))
-        res = nm.scan(host, ports)
+        self.reply(message, 'Scanning {} {}'.format(host, ports),
+                   self._handle_opts(message))
+        nm.scan(host, ports)
         for node in nm.all_hosts():
             logger.info('got results for {}'.format(node))
         self._report_results(nm, message)
@@ -76,7 +83,9 @@ class LegoNmap(Lego):
                 else:
                     text += "{} | ".format(str(open_ports))
             if 'osmatch' in nm[host]:
-                text += "OS best guess ({}% confidence): {} | ".format( nm [host]['osmatch'][0]['accuracy'], nm[host]['osmatch'][0]['name'])
+                text += "OS best guess ({}% confidence): {} | ".format(
+                    nm[host]['osmatch'][0]['accuracy'],
+                    nm[host]['osmatch'][0]['name'])
 
             self.reply(message, text, opts)
 

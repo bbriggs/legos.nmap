@@ -1,23 +1,23 @@
 language: python
 python:
-  - '3.3'
-  - '3.4'
-  - '3.5'
-  - '3.5-dev'
-  - '3.6'
-  - '3.6-dev'
-  - '3.7-dev'
-  - 'nightly'
+- '3.3'
+- '3.4'
+- '3.5'
+- 3.5-dev
+- '3.6'
+- 3.6-dev
+- 3.7-dev
+- nightly
 install:
-  - pip install -r requirements.txt
+- pip install -r requirements.txt
 script:
-  - bandit -r .
-  - flake8 .
+- bandit -r .
+- flake8 .
 deploy:
   provider: pypi
   user: briggsb
-  password:
-    secure: xDT/ltbz4q+oaonsf83z+JpR2x9UfWVkdw9nI9aAwE+Owtpyx34MZXz+VT9PHX0a84iUAsttGaV/XdZ5iLSZkR4V9yIC6NlX5djN3b2/jsmOSD8wAYFmF/hsP9mC0x5p2xGDxdvrR3TcbD6t4AlxdKwaOenbn0M+p7rnRsYru05G4FI+j4ZOkQqHz3ggd2Y1n+hGz7l1S+KjPVMPRWkBTbnHYL5UqHeUF6AgR6LlBjZM3f7oeQeuByngjZpPcU/lKiAJbSIJNCFt3cwSwoH5WVsu1gXRllCQT/gJEwprt9KBU/vZfz0REGuq24fcTBTRWMB3jG8HTUPhY1/EtqHFT8Po15fHHESctrsXSOo1N0GTJ6WHHNS2gclyKN+QDyvX+aUFWpc9HFuMOeeqm2JHcLzORiO+4wI9CEhdW5QbMkUNPKyg+PLj4nLCDTz29GKlSHakxaR6uuJLZmVXW6RHZTRDf2pQU3QPaF6mU2FuF5QGAyjXt+2PmE17jF2pn3OdMi4HsfEv7DLsG5tngK5z44dqxK10Z6J9qiSSu72TyDWlrG1m8DN28VqMgaNMl7idl15hDienTdFdQ92sUAT2i3P2LRuK9mM8WwVPPOR4+v6COptzkai6HGdkAJVldXlPMg2YnLfl4wywuH2uODPbkqRN/qexLwSqX1gudpuOWDo=
   distributions: sdist bdist_wheel
   on:
     tags: true
+  password:
+    secure: WIXqDkaQyt0M3/IIOVNYrzq8QS+/TP6PiUhXCntKZMcVS6rTFh1RcvihXGTSV7GwHCpnu2hUPCju3fyQuZedTV1DSDroxBsf83dylxcqtiuyn+ngdswsp1QTOGdLzxY8y6ZGm4AJWmrTPgsozfFXUudsFhp8MLlgUruNEefA0ennsscgwYkt0KRffU5gPsyjWyBpzhnKJuSyVA7wOucui4p4PQV5+Qd/2/GjRwIFXn2PctbzLISTSClHe63NHpOp87ccONy4T2JlFo9E63tZiHiL2U7pep8mEqjth8YQgRWE9akAyM84hUfodW4ATJsFqpt4X7c9jjoqB4Jm8T0NQfkdAwaOrNKNPrJRXD8s+nS31JS6QXtyO3taSqyukO9GY5MN27CwHclM4U+QbxBPQGl1R6aqS/+apSlhs6XSzGj+fDm7B81b1jHYOXqfSOjEnGmpF1o/Mj+HkX9TvSGSz6YhaSbUTHn7x2Irpm2qBRPk8vpe9YCKhptoiLCcfLIq2OV8lwYjcACyh+04LFhTpL+h8941x468055JPCMawalAwuOAa2DAAquYIG08TvFbn12UZleGzRcQKk2lrO220WLTIzioTocyBnOCcscm2PV7AxECG4iUFXL2oNNsZ5zpz02qIoBSEsUIJyFBgaACzThAoHxes1Y7nC7gj347bU8=
